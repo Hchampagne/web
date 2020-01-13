@@ -1,0 +1,195 @@
+header{
+    background-color: #F18F1F;
+}
+body{ 
+    background: transparent;
+    background-image:url(../img/images/overlay-abstract.png);
+    background-color:#B22222;
+    margin-left: 10px;
+    font-family: "Open sans";
+}
+
+#cards{
+    margin-bottom: 5rem;
+    margin-top: 5rem;
+}
+.btn{
+    color:#343538;
+    background-color:#F18F1F;
+    margin-bottom:1rem;
+}
+
+header{
+    background-color: #F18F1F;
+}
+
+#menu{
+    background-color: #343538;
+}
+.corp a {
+    color:#F18F1F;
+}
+
+.corp{
+    color:#fff;
+}
+
+a{
+    color: #fff;
+}
+a:hover{
+    color:#343538;
+    background-color:#F18F1F; 
+}
+
+#bp{
+    background-color:#343538;
+    margin-left: -10px;
+}
+#bp a{
+    
+    color: #F18F1F;
+}
+
+#bp a:hover{
+    color:#343538;
+    background-color:#F18F1F;
+}
+
+.bg-info{
+    border:solid #fff;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+
+
+#hp{
+    background-color:#F18F1F; 
+    color: #fff;
+}
+
+#social img{
+    height:2rem ;
+    width: 2rem;
+}
+
+#hp input{
+    background-color:#F18F1F;
+    opacity: 0.5;  
+}
+
+#hp .btn{
+    background-color:#343538; 
+    color: #fff;
+}
+
+hr{
+    background-color:#fff;
+}
+h1{
+    color:#F18F1F;
+    text-align: center;
+    font-size: 30px;
+    margin-top:1rem;
+}
+
+h2{
+    color: #343538;
+    margin-top:1rem;
+}
+
+h5{
+    color: #343538;
+    margin-top:1rem;
+}
+
+h6{
+    color: #F18F1F;
+    margin-top:1rem;
+    margin-left:1rem;
+}
+
+
+#pa{
+    margin-top: 2.5rem;
+}
+
+th{
+    color:#343538;
+}
+
+td{
+    color:#Fff;
+}
+
+small{
+    color:#343538;
+}
+
+.dropdown-menu{
+    background-color:#343538;
+    color: #F18F1F;
+}
+.dropdown-item:hover{
+    background-color:#F18F1F;
+    color: #343538; 
+}
+.dropdown-item{
+    color: #fff;
+}
+
+
+ .metier {
+    border: 1px solid grey;
+    height: auto;
+    min-height: 200px;
+    margin-left:1rem;
+}
+
+
+.carte {
+    cursor: move;
+} 
+
+#cartes {
+    
+    min-height: 100px;
+} 
+
+.metier .card-body {
+    display: none;
+}
+.corp{
+    padding-left:1rem;
+    padding-right: 1rem;
+}
+
+.textbox {
+    background-color: #ffffff;
+    color:#343538; 
+    border: 1px solid darkgray;
+    box-shadow: 1px 1px 1px 0 lightgray inset;  
+    margin-top: 5px;
+    padding: 2px 3px;
+       
+}
+
+#btn_add{
+    margin-top: 1rem;
+
+}
+
+.text-corif{
+    color:#F18F1F;
+}
+/* 
+#cartes .carte{
+    margin: 5px 20px 5px 20px;
+}
+
+#metiers .carte{
+    margin: 40px 0px 0px 0px;
+} */
+

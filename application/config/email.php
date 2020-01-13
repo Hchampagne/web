@@ -1,0 +1,24 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+
+$config['useragent'] = 'CodeIgniter';
+$config['protocol'] = 'smtp';
+$config['smtp_host'] = 'ssl0.ovh.net';
+$config['smtp_user'] = 'noreply@jerem1formatic.fr';
+$config['smtp_pass'] = 'Jer@Elo3014';
+$config['smtp_port'] = 587; 
+$config['smtp_timeout'] = 30;
+$config['smtp_crypto'] = '';
+$config['wordwrap'] = TRUE;
+$config['wrapchars'] = 76;
+$config['mailtype'] = 'html';
+$config['charset'] = 'utf-8';
+$config['validate'] = FALSE;
+$config['priority'] = 3;
+$config['crlf'] = "\r\n";
+$config['newline'] = "\r\n";
+$config['bcc_batch_mode'] = FALSE;
+$config['bcc_batch_size'] = 200;
+
+    
