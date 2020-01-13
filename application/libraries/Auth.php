@@ -19,6 +19,7 @@ class Auth {
     // retourne TRUE en cas de succes, FALSE sinon
     // en cas de succés, une variable de session est créée 
     // qui contient l'email, l'id, le nom, le prenom, le role de la personne
+
     public function loginjeu($nom, $email)
     {
         $resultat = $this->CI->db->query("
@@ -54,13 +55,13 @@ class Auth {
         }  
     }// session jeu
 
-    public function login($email, $password)
+    public function login($log, $email)
     {
         $resultat = $this->CI->db->query("
             SELECT * 
             FROM adherent
             WHERE login=? or email=? 
-        ", array($email, $email))->row();
+        ", array($log, $email))->row();
 
 
         if ($resultat) {

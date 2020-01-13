@@ -14,8 +14,8 @@
     <input type="password" class="form-control" id="UserPassword" name="password" placeholder="Password" required>
   </div>
   <div style="margin-bottom:2rem; ">
-  <button type="submit" class="btn btn-primary" id="valide" value="connexion"style="border: none">Valider</button>
-  <a href=<?= site_url("connexion/reset") ?> style="">
+  <button type="submit" class="btn btn-primary" id="valide" value="connexion" style="border: none">Valider</button>
+  <a href=<?= site_url("connexion/reset") ?> style="" >
     <button type="button" class="btn btn-primary" id="reset" value="connexion" style="border: none">Mot de passe oublié !</button>
   </a> 
   </div>

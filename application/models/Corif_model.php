@@ -14,7 +14,7 @@ function login($log, $email)
             $this->db->from('adherent');
             $this->db->where('login', $log);
             $this->db->or_where('email', $email);
-$requete =  $this->db->get();
+            $requete =  $this->db->get();
 
     return $requete;
 } // selection des adherents avec email

@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Connexion extends CI_Controller{
 
-    public function _contruct() {
-        parent::__contruct();
-    }
+    //public function _contruct() {
+    //    parent::__contruct();
+    //}
 
     public function inscription()
     {
@@ -96,8 +96,8 @@ class Connexion extends CI_Controller{
 
         if ($this->input->post())
         {
-            $log = $this->input->post("login");
-            $email= $this->input->post("email");
+            $log = $email = $this->input->post("login");           
+            $email = $log;
             $data= $this->Corif_model->login($log, $email);
             $detail = $data->row();
             
@@ -110,11 +110,11 @@ class Connexion extends CI_Controller{
                 
             elseif (password_verify($this->input->post("password"), $detail->mdp))
                 {
-                    
+                        
                         $data = array("date_connexion" => $today);
                         $this->db->where('login', $log);
                         $this->db->update('adherent', $data);
-                        $this->auth->login($log, $password);
+                        $this->auth->login($log, $email);
                     if ($this->auth->is_connect() == TRUE) {
                         Redirect(site_url('accueil'));
                     } else {

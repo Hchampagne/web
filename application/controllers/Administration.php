@@ -103,23 +103,23 @@ class Administration extends CI_Controller {
 
             $params = array();
             $limit_per_page = 20;
-            $start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            //$start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
             $total_records = $this->Cards->get_total();
     
             if ($total_records > 0) 
             {
                 // get current page records
-                $params["results"] = $this->Cards->get_current_page_records($limit_per_page, $start_index);
+                
                 // var_dump($params);
                 // $this->output->enable_profiler(true);
-                $config['base_url'] = base_url() . 'administration/carte';
+                $config['base_url'] = site_url() . '/administration/carte';
                 $config['total_rows'] = $total_records;
                 $config['per_page'] = $limit_per_page;
                 $config["uri_segment"] = 3;
                 
                 // custom paging configuration
                 $config['num_links'] = 2;
-                $config['use_page_numbers'] = TRUE;
+                $config['use_page_numbers'] = False;
                 $config['reuse_query_string'] = TRUE;
                 
                 
@@ -146,9 +146,10 @@ class Administration extends CI_Controller {
                 $config['num_tag_close'] = '</span>';
 
                 $this->pagination->initialize($config);
-                
+                $start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
                 // build paging links
                 $params["links"] = $this->pagination->create_links();
+                $params["results"] = $this->Cards->get_current_page_records($limit_per_page, $start_index);
             }
             
             $this->load->view('head');
