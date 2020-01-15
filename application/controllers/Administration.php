@@ -30,11 +30,10 @@ class Administration extends CI_Controller {
     }  
 
     public function suppr($id)
-    {
-            
-            $data =$this->input->post();
-            $data['adherent'] = $this->Corif_model->delete_adherents($id);
-            redirect(site_url("administration/adherent"));
+    {           
+        $data =$this->input->post();
+        $data['adherent'] = $this->Corif_model->delete_adherents($id);
+        redirect(site_url("administration/adherent"));
             
     }
 
@@ -92,10 +91,9 @@ class Administration extends CI_Controller {
 //****************************************************************************************** */
     public function carte()
     {
-        $this->output->enable_profiler(FALSE);
+        
 
         if ($this->auth->is_logged()) {
-            
 
             $params = array();
             $limit_per_page = 20;
@@ -114,7 +112,7 @@ class Administration extends CI_Controller {
                 
                 // custom paging configuration
                 $config['num_links'] = 2;
-                $config['use_page_numbers'] = False;
+                $config['use_page_numbers'] = FALSE;
                 $config['reuse_query_string'] = TRUE;
                 
                 
@@ -194,11 +192,11 @@ class Administration extends CI_Controller {
         else
         {
             if($this->auth->is_admin() == TRUE){
-            $this->load->view('head');
-            $this->load->view('header');
-            $data['adherent'] = $this->Corif_model->modif_adherents($id);
-            $this->load->view('administration/modif', $data);
-            $this->load->view('footer');
+                $this->load->view('head');
+                $this->load->view('header');
+                $data['adherent'] = $this->Corif_model->modif_adherents($id);
+                $this->load->view('administration/modif', $data);
+                $this->load->view('footer');
             }
             else  {
                 message("Veuillez vous identifier !!");
@@ -307,61 +305,80 @@ class Administration extends CI_Controller {
     }
 
 //************************************************************** */
-    public function email_val()
-        {
-                $this->output->enable_profiler(FALSE);
-                $liste= $this->Corif_model->admin();
-                $this->email->from('noreply@jerem1formatic.fr', 'Corif');
-                $mess=$this->load->view('email/email_val','',true);
-                // var_dump($liste);
-                $tab = array();
-                foreach($liste as $email) {
-                        array_push($tab, $email->email);
-                }
-                $mail = join(",", $tab);
-                // var_dump($mail);
-                $this->email->to($mail);        
-                $this->email->subject('Validation de profil');
-                $this->email->message($mess);
+    public function email_val(){  // mail envoyé au(x) administrateur(s) pour demandé validation adhérent
 
-                if ( ! $this->email->send(false))
-                {
-                       echo "envoie ko";
+
+        //cherche les adiministrateurs dans la liste adhérent
+        $liste= $this->Corif_model->admin();
+        //construit un tableau des mails des administrateurs
+        //mail groupé
+        $tab = array();
+        foreach ($liste as $email) {
+        array_push($tab, $email->email);
+        }
+        // variable des emails separer par ,
+        $to = join(",", $tab);
+
+        //mail emetteur
+        $from = "noreply@jerem1formatic.fr";
+
+        //sujet du mail
+        $subject = "Validation de profil : Des métiers, des vies ";
+                
+        //message à envoyer
+        $message = "Des profils sont en attente de validation sur le site !";
+
+        //envoie du mail       
+        $response = $this->Mail_model->mail($from, $to, $subject, $message);       
+                
+        // test si le mail a été envoyer
+        if ( $response== false)
+            {
+                echo "envoie ko";
+            }
+            else {
+                message('Votre inscription est en cours de validation.');
+                redirect('accueil');
                 }
-                else {
-                        message('Votre inscription est en cours de validation.');
-                        redirect('accueil');
-                }
-                $this->email->print_debugger();
+              
         }
 
-//******************************************************* */
-        public function email_conf(){
+//******************************************************************************************************* */
 
-            $this->output->enable_profiler(FALSE);
+        public function email_conf(){  // mail envoyé aux adhérent après inscription
+
+            // recupere le mail du dernier du dernier id entré en base
             $liste['email']= $this->Corif_model->latest_id();
-            $mess=$this->load->view('email/email_conf','',true);
-            $this->email->from('noreply@jerem1formatic.fr', 'Corif');
-            $mail=array();
-            foreach($liste as $email){
-                    array_push($mail, $email->email);
+            $mail = array();
+            foreach ($liste as $email) {
+            array_push($mail, $email->email);
             }
-            $maile = join(",",$mail);
-             // var_dump($maile);
-            $this->email->to($maile);        
-            $this->email->subject('Inscription sur Corif "Des métiers, des vies?"');
-            $this->email->message( $mess  );
+            ///$to = join(",", $mail);
+            $to = "toto@gmail.com";
 
-            if ( ! $this->email->send(false))
+            // mail emetteur
+            $from = "noreply@jerem1formatic.fr";
+
+            // sujet du mail                
+            $subject = "Inscription sur Corif : Des métiers, des vies ";
+
+            // message du mail
+            $message = "Une fois votre inscription validé vous reserverez une confirmation par Email." ;
+
+            //envoie du mail
+            $response = $this->Mail_model->mail($from, $to, $subject, $message); 
+
+            if ($response == false)
             {
                     message("L'envoie du mail de confirmation n'a pas pu aboutir");
                     redirect('administration/adherent');
             }
-            else {
+            else {               
+                    redirect('administration/email_val');
                     message('Votre inscription est en cours de validation.');
                     redirect('administration/adherent');
             }
-            $this->email->print_debugger();   
+            
     }
     
 // liste  session / formateur à venir 
