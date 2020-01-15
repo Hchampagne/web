@@ -220,6 +220,8 @@ class Jeu extends CI_Controller {
         
     }
 
+
+// Tableau bord sessions/adhérents
     public function dashboad()
     {
                       
@@ -228,7 +230,7 @@ class Jeu extends CI_Controller {
                 $this->load->view('header');
                 $data['participant'] = $this->Corif_model->participant();
                 $id=$_SESSION["id"];
-                $sessions = $this->db->query("select * from session where date_session>=date() and id_formateur=$id")->result();
+                $sessions = $this->db->query("select * from session where date_session>=?", mdate() ," and id_formateur=?", $id)->result();
                 foreach ($sessions as $session) {
                     $session->nb_participant = $this->db->query("select count(*) as compteur from invite where id_session=?", $session->id)->row()->compteur;
                     $session->metiers = $this->db->query("select * from metier join contient on metier.id=contient.id_metier where contient.id_session=?", $session->id)->result();
@@ -255,17 +257,11 @@ class Jeu extends CI_Controller {
         foreach($liste as $email){
                 array_push($mail, $email->email);
         }
-        $maile = join(",",$mail);
-        
-        
+        $maile = join(",",$mail);       
         
         $this->email->to($maile);        
         $this->email->subject('Inscription sur Corif "Des métiers, des vies?"');
         $this->email->message( $mess  );
-
-
-
-
 
         if ( ! $this->email->send(false))
         {
@@ -280,10 +276,9 @@ class Jeu extends CI_Controller {
 
 }
 
+
     function session($id)
     {
-        
-
         if($this->auth->is_logged() == TRUE){
             $this->load->view('head');
             $this->load->view('header');
@@ -296,6 +291,7 @@ class Jeu extends CI_Controller {
             redirect(site_url("connexion/login"));
         }
     }
+
 
     function login()
     {

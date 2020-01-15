@@ -38,10 +38,10 @@
             <tbody>
             <?php foreach ($results as $data): ?>
                 <tr>
-                <td><?= $data->numero_carte_metiers ?> </td>
+                <td><?= $data->numero ?> </td>
                 <td><?= $data->description ?> </td>
                 <td><?= $data->metier ?> </td>
-                <td><?= $data->idm ?> </td>
+                <td><?= $data->type ?> </td>
                 <?php if($this->auth->is_admin()): ?>
                     <td> <a class="btn" href="<?=site_url("administration/modif_carte/$data->id")?>" style="color:#343538">Modifier</a> </td>
                     <td> <a class="btn btn-danger"href="<?=site_url("administration/suppr_carte/$data->id")?>" Onclick='return confirm("Etes-vous sûr de bien vouloir supprimer la carte ?")' style="color:#343538">Suppression </a> </td>

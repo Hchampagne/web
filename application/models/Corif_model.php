@@ -8,38 +8,39 @@ class Corif_model extends CI_Model {
         parent::__construct();
     }
 
-// Partie connexion / Inscription
-function login($log, $email)
-{
-            $this->db->from('adherent');
-            $this->db->where('login', $log);
-            $this->db->or_where('email', $email);
-            $requete =  $this->db->get();
+//PARTIE INSCRIPTION / CONNEXION
 
-    return $requete;
-} // selection des adherents avec email
+//retourne  l'enregistrement => fct login ou email
+    function login($log, $email)
+    {
+        $this->db->from('adherent');
+        $this->db->where('login', $log);
+        $this->db->or_where('email', $email);
+        $requete =  $this->db->get();
+        return $requete;
+    } 
+              
+// selection des adherents avec email
+    function is_unique($log, $email)
+    {
+        $this->db->from('adherent');
+        $this->db->where('login', $log);
+        $this->db->or_where('email', $email);
+        $requete =  $this->db->get();
+        return  $requete->result();
+    }
 
-function is_unique($log, $email)
-{
-            $this->db->from('adherent');
-            $this->db->where('login', $log);
-            $this->db->or_where('email', $email);
-$requete =  $this->db->get();
-
-return  $requete->result();
-
-}
-
+// selection des adherents avec le role admin
     function admin()
     {
-                $this->db->select('email');
-                $this->db->from('adherent');
-                $this->db->where('role','administrateur');
-    $requete =  $this->db->get();
-
+        $this->db->select('email');
+        $this->db->from('adherent');
+        $this->db->where('role','administrateur');
+        $requete =  $this->db->get();
         return $requete->result();
-    } // selection des adherents avec le role admin
-    
+    } 
+   
+// selection des adherents avec le role admin   
     function formateur()
     {
         $this->db->from('adherent');
@@ -48,6 +49,7 @@ return  $requete->result();
         return $requete->result();
     }
 
+// Dernier ID de la liste
     function latest_id()
     {
         $this->db->select('email', 'id');
@@ -56,10 +58,8 @@ return  $requete->result();
         $requete= $this->db->get();
         return $requete->row();
     }
-     // Dernier ID de la liste
-
-    
-
+      
+// ajoute d'une key reinitialisation mdp
     public function create_key($mail) 
     {
         $key = generate_number(10) . microtime(true)*10000 .generate_number(10);
@@ -67,56 +67,49 @@ return  $requete->result();
         return $key;
     }
 
-    // ajoute d'une key reinitialisation mdp
- 
 
-// Partie adherent
+// PARTIE ADHERENTS
 
+// selection des adherents
     function select_adherents()
     {
         $this->db->from('adherent');
         $requete =  $this->db->get();
         return $requete->result();
     }
-    // selection des adherents
-
+    
+//Ajout d'adherent
     function insert_adherents($data)
     {
        $this->db->insert('adherent', $data);
     }
-
-    //Ajout d'adherent
    
+//Mise à jour de l'adherents  
     function update_adherents($id, $data)
     {    
         $this->db->where('id', $id);
         return $this->db->update('adherent',$data);
     }
 
-    //Mise à jour de l'adherents
-
-
+// Select adherent par ID
     function modif_adherents($id)
     {
-                $this->db->from('adherent');
-                $this->db->where('id', $id);
-    $requete =  $this->db->get();
-                   
+        $this->db->from('adherent');
+        $this->db->where('id', $id);
+        $requete =  $this->db->get();                   
         return $requete->row();
     }
 
-    // Select adherent par ID
-
-
+// Suppression d'un adherent
     function delete_adherents($id)
     {
         $this->db->where('id', $id);
         $this->db->delete('adherent');
-    }
+    }  
 
-    // Suppression d'un adherent
+// PARTIE CARTES   
 
-
+// Selection carte avec metier
     function select_carte()
     {
         $requete = $this->db->query("
@@ -127,63 +120,59 @@ return  $requete->result();
         ");
         return  $requete->result();
     }
-    // Selection carte avec metier
-
+    
+//insertion d'une carte
     function insert_carte($data)
     {   
        $this->db->insert('carte', $data);
        $this->db->join('metier','carte.id_metier = metier.id' );
     }
 
-    //insertion d'une carte
-
-    function insert_metier($data)
-    {   
-       $this->db->insert('metier', $data);
-    }
-
-    //insertion d'un métier
-
-    function liste_prenom()
-    {
-        $data= $this->db->query("SELECT * FROM metier");
-        return $data->result();
-    }
-
-    // Liste des metiers
-   
-
+//Mise à jour d'une carte
     function update_carte($id, $data)
-    {   
+    {
         $this->db->from('carte');
         $this->db->where('id', $id);
-        return $this->db->update('carte',$data);
+        return $this->db->update('carte', $data);
     }
 
-    //Mise à jour d'une carte
-
-
+//select carte par id
     function modif_carte($id)
     {
         $this->db->from('carte');
         $this->db->join('metier', 'carte.id_metier = metier.id');
         $this->db->where('carte.id', $id);
         $requete =  $this->db->get();
-                   
         return $requete->row();
     }
 
-    //select carte par id
-
-
+//suppression de la carte
     function delete_carte($id)
     {
         $this->db->from('carte');
         $this->db->where('id', $id);
         $this->db->delete('carte');
     }
-//suppression de la carte
 
+
+
+// PARTIE METIERS
+
+//insertion d'un métier
+    function insert_metier($data)
+    {   
+       $this->db->insert('metier', $data);
+    }
+   
+// Liste des metiers
+    function liste_prenom()
+    {
+        $data= $this->db->query("SELECT * FROM metier");
+        return $data->result();
+    }
+ 
+
+//Recherche
     function search($data)
         {
             $this->db->select('prenom, metier, numero, description, type');
@@ -199,20 +188,17 @@ return  $requete->result();
             return  $requete->result();
         }
 
-    //Recherche
-
-// Partie métier
-
 
 // Partie Jeu
-    function loginjeu($nom)
-        {
-                    $this->db->from('invite');
-                    $this->db->where('nom', $nom);
-                    $requete =  $this->db->get();
 
-            return $requete;
-        } // selection participant
+// selection participant
+    function loginjeu($nom)
+    {
+        $this->db->from('invite');
+        $this->db->where('nom', $nom);
+        $requete =  $this->db->get();
+        return $requete;
+    } 
 
     function select_metier($id1)
     {
@@ -242,14 +228,15 @@ return  $requete->result();
         $this->db->select('*');
         $this->db->from('session');
         $requete =  $this->db->get();
-
         return $requete->result();
      }
+
 
      function create_session($data)
     {
         $this->db->insert('session', $data);
     }
+    
 
     function update_session($data, $id)
     {
@@ -286,7 +273,7 @@ return  $requete->result();
         return $this->db->insert('contient',$data);
     }
 
-    //Choix des metiers
+
 
     function participant()
         {
@@ -305,8 +292,9 @@ return  $requete->result();
         $this->db->where('nom', $nom);
         $requete= $this->db->get();
         return  $requete->row();
-    }    
+    } 
 
+// Dernier ID de la liste
     function latest_id_part()
     {
         $this->db->select('email', 'id');
@@ -314,9 +302,9 @@ return  $requete->result();
         $this->db->order_by('id', 'desc');
         $requete= $this->db->get();
         return $requete->row();
-    } // Dernier ID de la liste
+    } 
 
-
+//nbr de participant
     function nbr_participant()
     {
         $requete = $this->db->query("SELECT session.id, date_session, heure_debut, heure_fin, 
@@ -324,8 +312,9 @@ return  $requete->result();
         FROM invite
         JOIN session on invite.id_session = session.id");
         return  $requete->result();
-    }//nbr de participant
+    }
 
+// participant part session
     function part_sess($id)
     {
         $this->db->select('*');
@@ -333,7 +322,7 @@ return  $requete->result();
         $this->db->where('id_session', $id);
         $requete= $this->db->get();
         return $requete->result();
-    }// participant part session
+    }
 
     function etat($id)
     {

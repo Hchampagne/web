@@ -11,14 +11,12 @@ class Cards extends CI_Model
  
     public function get_current_page_records($limit, $start) 
     {
-        $this->db->select('cartemetiers.*, metiers.metier, metiers.id as idm');
-        $this->db->from('cartemetiers');
-        $this->db->join('metiers', 'cartemetiers.id_metiers = metiers.id');
-        $this->db->order_by('idm', 'asc'); 
+        $this->db->select('carte.*, metier.metier, metier.id as idm');
+        $this->db->from('carte');
+        $this->db->join('metier', 'carte.id_metier = metier.id');
+        $this->db->order_by('numero', 'asc'); 
         $this->db->limit($limit, $start);
-       
-
-    
+          
         $query = $this->db->get();
  
         if ($query->num_rows() > 0) 
@@ -36,6 +34,6 @@ class Cards extends CI_Model
      
     public function get_total() 
     {
-        return $this->db->count_all("cartemetiers");
+        return $this->db->count_all("carte");
     }
 }

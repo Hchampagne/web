@@ -15,7 +15,7 @@ Create table carte (
 	numero VARCHAR(50) NOT NULL,
 	description text NOT NULL,
 	type VARCHAR(10) NOT NULL,
-foreign key (id_metiers) references metier(id)
+foreign key (id_metier) references metier(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 Create table adherent (

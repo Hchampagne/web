@@ -13,7 +13,7 @@ Create table carte (
 	id INT(3) NOT NULL AUTO_INCREMENT PRIMARY key,
 	id_metier INT(3) NOT NULL,
 	numero VARCHAR(50) NOT NULL,
-	description text NOT NULL,
+	description VARCHAR(255) NOT NULL,
 	type VARCHAR(10) NOT NULL,
 foreign key (id_metier) references metier(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -29,8 +29,7 @@ Create table adherent (
 	validation INT(2) NOT NULL,
 	date_inscription date,
 	date_connexion datetime,
-	key VARCHAR(50), 
-
+	cle VARCHAR(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
@@ -60,7 +59,7 @@ CREATE TABLE contient (
 	PRIMARY KEY(id_session,id_metier),
 	FOREIGN KEY (id_session) references session(id),
 	FOREIGN KEY (id_metier) references metier(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 use corif;
@@ -86,7 +85,7 @@ INSERT INTO metier (metier, prenom, age)
  ('Tourneur(euse)', 'Audrey', 22);
 
 DELETE FROM adherent;
-INSERT INTO adherent (nom, prenom, email, organisme, role, password, validation)
+INSERT INTO adherent (nom, prenom, email, organisme, role, login, password, validation)
  VALUES
 ('Delicque', 'Jeremy', 'Jeremy@delicque.fr', 'Afpa', 'Administrateur', 'jdelicque', '$2y$10$AiVPNjz2GX9HhXQviC5YyONerxtajJ4gKTQb1N4eWcwZZOIzT/0Ie', 1);
 

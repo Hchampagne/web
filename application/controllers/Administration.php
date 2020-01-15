@@ -7,11 +7,7 @@ class Administration extends CI_Controller {
         parent::__contruct();
         }
 
-    public function index()
-    {
-
-    }
-
+/************************************************************************************ */
     public function adherent()
     {
         $data["liste"] = $this->Corif_model->select_adherents();
@@ -43,7 +39,7 @@ class Administration extends CI_Controller {
     }
 
 
-
+//***************************************************************************************** */
     public function newpassword()
 {
     
@@ -93,7 +89,7 @@ class Administration extends CI_Controller {
 }
 
 
-
+//****************************************************************************************** */
     public function carte()
     {
         $this->output->enable_profiler(FALSE);
@@ -103,7 +99,6 @@ class Administration extends CI_Controller {
 
             $params = array();
             $limit_per_page = 20;
-            //$start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
             $total_records = $this->Cards->get_total();
     
             if ($total_records > 0) 
@@ -165,7 +160,7 @@ class Administration extends CI_Controller {
     
 
     
-
+//************************************************************************* */
     public function search()
     {
         $data = $this->input->post("search");
@@ -175,15 +170,19 @@ class Administration extends CI_Controller {
 		$this->load->view('administration/recherche', $model);
 		$this->load->view('footer');
     }
-   
+
+//************************************************************************ */   
     public function recap()
     {
+        
         $this->load->view('head');
 		$this->load->view('header');
 		$this->load->view('administration/recap', $model);
 		$this->load->view('footer');
     }
-    
+
+
+//************************************************************************* */   
     public function modif($id)
     {
         if ($this->input->post())
@@ -208,6 +207,7 @@ class Administration extends CI_Controller {
         }
     }
 
+/************************************************************************ */
     public function ajout_metier()
     {
         $this->output->enable_profiler(TRUE);   
@@ -264,7 +264,7 @@ class Administration extends CI_Controller {
         }
     }
 
-
+//******************************************************************************* */
     public function modif_carte($id)
     {
 
@@ -306,7 +306,7 @@ class Administration extends CI_Controller {
             }
     }
 
-
+//************************************************************** */
     public function email_val()
         {
                 $this->output->enable_profiler(FALSE);
@@ -335,6 +335,7 @@ class Administration extends CI_Controller {
                 $this->email->print_debugger();
         }
 
+//******************************************************* */
         public function email_conf(){
 
             $this->output->enable_profiler(FALSE);
@@ -360,11 +361,10 @@ class Administration extends CI_Controller {
                     message('Votre inscription est en cours de validation.');
                     redirect('administration/adherent');
             }
-            $this->email->print_debugger();
-
-    
+            $this->email->print_debugger();   
     }
-
+    
+// liste  session / formateur à venir 
     public function dashboad()
     {
         $this->output->enable_profiler(FALSE);
@@ -373,7 +373,7 @@ class Administration extends CI_Controller {
             $this->load->view('head');
             $this->load->view('header');
             $data['formateur'] = $this->Corif_model->formateurs();
-            $sessions = $this->db->query("select * from session where date_session>=date()")->result();
+            $sessions = $this->db->query("select * from session where date_session >= ?", mdate())->result();
             foreach ($sessions as $session) {
                 $session->nb_participant = $this->db->query("select count(*) as compteur from invite where id_session=?", $session->id)->row()->compteur;
                 $session->metiers = $this->db->query("select * from metier join contient on metier.id=contient.id_metier where contient.id_session=?", $session->id)->result();
@@ -388,7 +388,6 @@ class Administration extends CI_Controller {
         }
             }
 
-// travail dans la branche test ok
 
     }
 

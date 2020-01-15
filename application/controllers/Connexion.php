@@ -97,7 +97,6 @@ class Connexion extends CI_Controller{
         if ($this->input->post())
         {
             $log = $email = $this->input->post("login");           
-            $email = $log;
             $data= $this->Corif_model->login($log, $email);
             $detail = $data->row();
             
@@ -140,6 +139,8 @@ class Connexion extends CI_Controller{
             $this->load->view('footer');
         }
     }
+
+    
 
     public function deconnexion()
         {
