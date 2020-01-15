@@ -10,11 +10,12 @@ class Mail_model extends CI_Model
     }
 
     // envoi mail retourne true si envoi réussi
-    //paramètre
+    // paramètres
 
     public function mail($from, $to, $subject, $message){
 
-        $this->email->print_debugger();  // vide les paramètres email
+        // vide les paramètres email
+
 
         $this->email->from($from , "CORIF des métiers, des vies");  // mail emetteur
         $this->email->to($to);           // mail destinataire
@@ -22,6 +23,6 @@ class Mail_model extends CI_Model
         $this->email->message($message);      // mail message
 
         $response = $this->email->send();    // envoie le mail 
-        return $response;                    // et true si reussi   
+        return $response;                    // et renvoi true si reussi   
     }  
 }

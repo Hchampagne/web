@@ -332,7 +332,7 @@ class Administration extends CI_Controller {
         $response = $this->Mail_model->mail($from, $to, $subject, $message);       
                 
         // test si le mail a été envoyer
-        if ( $response== false)
+        if ( $response == false)
             {
                 echo "envoie ko";
             }
@@ -353,7 +353,7 @@ class Administration extends CI_Controller {
             foreach ($liste as $email) {
             array_push($mail, $email->email);
             }
-            ///$to = join(",", $mail);
+            //$to = join(",", $mail);
             $to = "toto@gmail.com";
 
             // mail emetteur
@@ -363,7 +363,7 @@ class Administration extends CI_Controller {
             $subject = "Inscription sur Corif : Des métiers, des vies ";
 
             // message du mail
-            $message = "Une fois votre inscription validé vous reserverez une confirmation par Email." ;
+            $message = "Une fois votre inscription validé, un email de confirmation vous sera envoyé." ;
 
             //envoie du mail
             $response = $this->Mail_model->mail($from, $to, $subject, $message); 

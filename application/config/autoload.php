@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Corif_model', 'Cards' );
+$autoload['model'] = array('Corif_model', 'Cards', 'Mail_model' );

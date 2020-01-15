@@ -1,10 +1,8 @@
 header{
     background-color: #F18F1F;
 }
-body{ 
-    background: transparent;
-    background-image:url(../img/images/overlay-abstract.png);
-    background-color:#B22222;
+body{   
+    background-color: #eeeded;
     margin-left: 10px;
     font-family: "Open sans";
 }
@@ -19,24 +17,21 @@ body{
     margin-bottom:1rem;
 }
 
-header{
-    background-color: #F18F1F;
-}
+
 
 #menu{
     background-color: #343538;
 }
+
 .corp a {
     color:#F18F1F;
 }
 
-.corp{
-    color:#fff;
-}
 
 a{
     color: #fff;
 }
+
 a:hover{
     color:#343538;
     background-color:#F18F1F; 
@@ -88,8 +83,9 @@ a:hover{
 hr{
     background-color:#fff;
 }
+
 h1{
-    color:#F18F1F;
+    color:black;
     text-align: center;
     font-size: 30px;
     margin-top:1rem;
@@ -161,10 +157,7 @@ small{
 .metier .card-body {
     display: none;
 }
-.corp{
-    padding-left:1rem;
-    padding-right: 1rem;
-}
+
 
 .textbox {
     background-color: #ffffff;

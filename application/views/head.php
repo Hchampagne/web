@@ -9,7 +9,7 @@
 
     <!-- CSS -->
     <link href="<?= base_url ("style/bootstrap.css") ?>" rel='stylesheet' type='text/css'>
-    <link href="<?= base_url ("style/style.css") ?>" rel='stylesheet' type='text/css'>
+    <link href="<?= base_url ("style/style.css") ?>" rel='stylesheet' type='text/css'> 
 
     <!--Script -->
     <script src="<?= base_url ("script/jquery-3.3.1.min.js") ?>"></script>
@@ -17,6 +17,6 @@
     <script src="<?= base_url ("script/bootstrap.min.js") ?>"></script>
     
  
- <!-- menu mobile  -->
+    <!-- menu mobile  -->
  
 </head>

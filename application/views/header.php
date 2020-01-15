@@ -5,8 +5,7 @@
                 </div>    <!-- fin de row img -->   
                 
                 <div class="row" id="menu">
-                    <h6 id="txt"> <!--horloge script --> </h6> 
-                    <br>
+                    
                     <h6>
                         <?php 
                             setlocale(LC_ALL, 'fr_FR.UTF8', 'fr_FR','fr','fr','fra','fr_FR@euro');
@@ -66,43 +65,4 @@
                 </div> <!-- fin de row -->
             </header>
             
-            <div class="container-fluid">
-                
-			
-
-    <?php if (isset($_SESSION["message"])): ?> 
-    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <strong class="text-center"><?= $_SESSION["message"] ?></strong> 
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-            
-    <?php
-            unset($_SESSION["message"]);
-        endif;
-    ?> 
-    
-    <script>
-                        function startTime() {
-                        var date = new Date();
-                        var h = date.getHours();
-                        var m = date.getMinutes();
-                        var s = date.getSeconds();
-                        // add a zero in front of numbers<10
-                        m = checkTime(m);
-                        s = checkTime(s);
-                        document.getElementById("txt").innerHTML = h + ":" + m + ":" + s;
-                        var t = setTimeout(function(){ startTime() }, 500);
-                        }
-
-                        function checkTime(i) {
-                        if (i < 10) {
-                            i = "0" + i;
-                        }
-                        return i;
-                        }
-                    </script>
-   
-
-<div class="corp"> 
+      

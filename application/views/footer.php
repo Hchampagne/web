@@ -1,5 +1,4 @@
-</div> <!-- fin de corp -->
-</div> <!--fin de container  -->
+
 <footer>
 
     <div class="row" id="hp">
