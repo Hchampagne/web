@@ -1,4 +1,3 @@
-
 <footer>
 
     <div class="row" id="hp">
@@ -20,31 +19,31 @@
 
                 <div class="col-1  col-md-1">
                     <a href="" class="" title="Linkedin">
-                        <img src="<?= base_url ("img/images/linkedin.png") ?>" alt="">
+                        <img src="<?= base_url("img/images/linkedin.png") ?>" alt="">
                     </a>
                 </div>
 
                 <div class="col-1  col-md-1">
                     <a href="" class="" title="Twitter">
-                        <img src="<?= base_url ("img/images/twitter.png") ?>" alt="">
+                        <img src="<?= base_url("img/images/twitter.png") ?>" alt="">
                     </a>
                 </div>
 
                 <div class="col-1  col-md-1">
                     <a href="" class="" title="Facebook">
-                        <img src="<?= base_url ("img/images/facebook.png") ?>" alt="">
+                        <img src="<?= base_url("img/images/facebook.png") ?>" alt="">
                     </a>
                 </div>
 
                 <div class="col-1  col-md-1">
                     <a href="#" class="" title="YouTube">
-                        <img src="<?= base_url ("img/images/youtube.png") ?>" alt="">
+                        <img src="<?= base_url("img/images/youtube.png") ?>" alt="">
                     </a>
                 </div>
 
                 <div class="col-1  col-md-1">
                     <a href="#" class="" title="Google">
-                        <img src="<?= base_url ("img/images/google.png") ?>" alt="">
+                        <img src="<?= base_url("img/images/google.png") ?>" alt="">
                     </a>
                 </div>
 
@@ -123,7 +122,7 @@
 </footer>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<script src="<?= base_url ("script/script.js") ?>"></script>
+<script src="<?= base_url("assets/JS/ctrl_inscription.js") ?>"></script>
 
 </body>
 

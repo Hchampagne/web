@@ -339,8 +339,7 @@ class Administration extends CI_Controller {
             else {
                 message('Votre inscription est en cours de validation.');
                 redirect('accueil');
-                }
-              
+                }            
         }
 
 //******************************************************************************************************* */
@@ -353,8 +352,8 @@ class Administration extends CI_Controller {
             foreach ($liste as $email) {
             array_push($mail, $email->email);
             }
-            //$to = join(",", $mail);
-            $to = "toto@gmail.com";
+            $to = join(",", $mail);
+           
 
             // mail emetteur
             $from = "noreply@jerem1formatic.fr";

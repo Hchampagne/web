@@ -9,28 +9,108 @@ class Connexion extends CI_Controller{
 
     public function inscription()
     {
-        $log=   $this->input->post("login");
-        $email= $this->input->post("email");
-        
-        $requete= $this->Corif_model->login($log, $email);
-        $uniques= $this->Corif_model->is_unique($log, $email);
-
-        $this->output->enable_profiler(false);
-        
-            
+             
         if ($this->input->post()){
-            
+
+            // controle formulaire post()
+            // tests si vide  (riquired) / filtre balises html (html_escape) / test regex (regex_match)
+            // test si déjà present dans Database (is_unique) / si champs identiques (matches[])
+            // test validité eamil (validd_email)
+            // messages d'erreurs en fonction des tests
+
+            $this->form_validation->set_rules('nom','Nom',
+                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
+                array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte')); 
+
+            $this->form_validation->set_rules('prenom', 'Prenom',
+                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
+                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
+
+            $this->form_validation->set_rules('organisme', 'Organisme',
+                'required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]', 
+                array('required'=>'Le champ est vide', 'regex_match'=>'La saisie est incorrecte'));
+
+            $this->form_validation->set_rules('email', 'Email', 'required|is_unique[adherent.email]|valid_email',   
+                array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé','valid_email'=>'Votre email est incorrecte'));
+
+            $this->form_validation->set_rules('login', 'Login',
+                'required|is_unique[adherent.login]|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
+                array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé', 'regex_match'=>'La saisie est incorrecte'));
+
+            $this->form_validation->set_rules('mdp', 'MDP',
+                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', 
+                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
+
+            $this->form_validation->set_rules('verifmdp','Verifmdp','required|matches[mdp]',             
+                array('required'=>'Le champs est vide', 'matches'=>'Les mots de passes ne sont pas identiques' ));
+
+                if($this->form_validation->run() == false ){ 
+
+                    // formulaire non conforme aux controles
+                    // rechargement de la page
+                    $this->load->view('head');
+                    $this->load->view('header');
+                    $this->load->view('connexion/inscription');
+                    $this->load->view('footer');
+                   
+                }else{  
+                    //pas d'erreurs dans les formulaires
+                    // nous pouvons faire l'indsertion en base De donnée
+
+                    // forrmat une date en fonction du fuseau horaire et heure été/hiver
+                    date_default_timezone_set('Europe/Paris');
+                    $today = date("Y-m-d");
+
+                    //recup le post du formulaire inscription
+                    $data = $this->input->post(null,true);  // filtre html balise 
+
+                    //le hash du mot de passe
+                    $password_hash = password_hash($data["mdp"], PASSWORD_DEFAULT);
+                    $data["mdp"] = $password_hash;                
+
+                    //insert la date du jour dans le post
+                    $data += array("date_inscription" => $today);                    
+
+                    // insertion dans base de donnée appel model corif_model->insert_adherents
+                    $this->Corif_model->insert_adherents($data);
+
+                    // redirection pour envoi des email confirmation inscrption et attente validation
+                    // plus mail admin pour validation
+                    redirect('administration/email_conf');
+                }
+        } else {
+
+            // pas de post() rechargement de la page pemier affichage
+            $this->load->view('head');
+            $this->load->view('header');
+            $this->load->view('connexion/inscription');
+            $this->load->view('footer');
+        }
+
+
+
+
+
+            /*
                 if($requete->num_rows() == 0)
                 {
                     $this->load->model('corif_model');
+                    //recup la table adherent
                     $this->corif_model->select_adherents();
+                    // forrmat une date en fonction du fuseau horaire et heure été/hiver
                     date_default_timezone_set('Europe/Paris');
                     $today= date("Y-m-d");
+                    //recup le post du formulaire inscription
                     $data = $this->input->post();
+                    //le hash du mot de passe
                     $password_hash = password_hash($data["mdp"],PASSWORD_DEFAULT);
                     $data["mdp"] = $password_hash;
+                    //insert la date du jour dans le post
                     $data += array("date_inscription" => $today);
+                    // insertion dans base de donnée appel model corif_model->insert_adherents
                     $this->corif_model->insert_adherents($data);
+                    // redirection pour envoi des email confirmation inscrption et attente validation
+                    // plus mail admin pour validation
                     redirect('administration/email_conf');
                 }
 
@@ -49,9 +129,9 @@ class Connexion extends CI_Controller{
                     message("Le login " .$log. " est déjà présent dans la base de donnée merci de le modifier");
                     redirect('connexion/inscription');
                 }
-            }
+            }*/
             
-            // $recaptchaResponse = trim($this->input->post('g-recaptcha-response'));
+            /* $recaptchaResponse = trim($this->input->post('g-recaptcha-response'));
  
             // $userIp=$this->input->ip_address();
          
@@ -74,17 +154,12 @@ class Connexion extends CI_Controller{
             //     $this->session->set_flashdata('flashError', 'Sorry Google Recaptcha Unsuccessful!!');
             // }
         
-            // redirect('form', 'refresh');
+             redirect('form', 'refresh');
+            
 
+        }*/
 
-        }
-
-        else{
-        $this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('connexion/inscription');
-		$this->load->view('footer');
-        }
+       
     }
 
 
@@ -152,9 +227,13 @@ class Connexion extends CI_Controller{
 
 
         public function reset()
+        
         {
+            
             if($this->input->post())
+            
             {
+                
                $mail= $this->input->post();
                
 
