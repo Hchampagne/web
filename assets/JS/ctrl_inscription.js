@@ -94,7 +94,7 @@ $('#ins_mdpverif').blur(function () {
 //controle doublons email (ajax)
 $('#ins_email').change(function () {
     $.post({
-         url: "../../Ajax/doublon",
+         url: "./../Ajax/doublon",
          data:
         {
             verifRef: $("#ins_email").val(),

@@ -55,36 +55,48 @@ class Connexion extends CI_Controller{
                    
                 }else{  
                     //pas d'erreurs dans les formulaires
-                    // nous pouvons faire l'indsertion en base De donnée
-
-                    // forrmat une date en fonction du fuseau horaire et heure été/hiver
-                    date_default_timezone_set('Europe/Paris');
-                    $today = date("Y-m-d");
+                    // nous pouvons faire l'indsertion en base De donnée                 
 
                     //recup le post du formulaire inscription
                     $data = $this->input->post(null,true);  // filtre html balise 
+
+                    //supprime le champ verifmdp du post => "controle champs identiques"
+                    //ATTENTION supprime la 6ème position (5)
+                    array_splice($data,6,1);
 
                     //le hash du mot de passe
                     $password_hash = password_hash($data["mdp"], PASSWORD_DEFAULT);
                     $data["mdp"] = $password_hash;                
 
-                    //insert la date du jour dans le post
-                    $data += array("date_inscription" => $today);                    
-
                     // insertion dans base de donnée appel model corif_model->insert_adherents
-                    $this->Corif_model->insert_adherents($data);
+                    $insert = $this->Corif_model->insert_adherents($data);
 
-                    // redirection pour envoi des email confirmation inscrption et attente validation
-                    // plus mail admin pour validation
-                    redirect('administration/email_conf');
-                }
+                    if($insert == 1){
+                        // insert en base réussi
+
+                        //pop_up de confirmation    
+
+                        // redirection pour envoi des email confirmation inscrption et attente validation
+                        // plus mail admin pour validation
+                        redirect('administration/email_conf');
+
+                    }else{
+
+                        //pop_up avec retour a l'accueil
+
+                        $this->load->view('head');
+                        $this->load->view('header');
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer');
+                        }                   
+                    }
         } else {
 
-            // pas de post() rechargement de la page pemier affichage
-            $this->load->view('head');
-            $this->load->view('header');
-            $this->load->view('connexion/inscription');
-            $this->load->view('footer');
+        // pas de post() rechargement de la page pemier affichage
+        $this->load->view('head');
+        $this->load->view('header');
+         $this->load->view('connexion/inscription');
+        $this->load->view('footer');
         }
 
 

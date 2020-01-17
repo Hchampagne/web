@@ -81,7 +81,14 @@ class Corif_model extends CI_Model {
 //Ajout d'adherent
     function insert_adherents($data)
     {
-       $this->db->insert('adherent', $data);
+        //ajout de la date inscritpion
+        $today = date("Y-m-d");
+        $this->db->set("date_inscription", $today );
+        //insert dans la base
+        $this->db->insert('adherent', $data);
+
+        $insert = $this->db->affected_rows();
+        return $insert;
     }
    
 //Mise à jour de l'adherents  
