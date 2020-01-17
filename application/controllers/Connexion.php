@@ -72,15 +72,15 @@ class Connexion extends CI_Controller{
                     $insert = $this->Corif_model->insert_adherents($data);
 
                     if($insert == 1){
-                        // insert en base réussi
-
-                        //pop_up de confirmation    
-
+                    // insert en base réussi
+                    
+                       
                         // redirection pour envoi des email confirmation inscrption et attente validation
                         // plus mail admin pour validation
                         redirect('administration/email_conf');
 
                     }else{
+                        // insert en base a échoué
 
                         //pop_up avec retour a l'accueil
 
@@ -92,7 +92,7 @@ class Connexion extends CI_Controller{
                     }
         } else {
 
-        // pas de post() rechargement de la page pemier affichage
+        // pas de post() rechargement de la page premier affichage
         $this->load->view('head');
         $this->load->view('header');
          $this->load->view('connexion/inscription');
@@ -178,6 +178,8 @@ class Connexion extends CI_Controller{
 
 
     public function login(){
+
+        // 
         date_default_timezone_set('Europe/Paris');
         $today =date("Y-m-d H:i:s");
 

@@ -1,7 +1,6 @@
 <footer>
 
     <div class="row" id="hp">
-
         <div class='col-12 col-md-4' id="contact">
             <h5 style="color:#343538">Contact</h5>
             <hr>
@@ -84,8 +83,8 @@
 
         </div>
     </div>
-    </div> <!-- fin row-hp -->
-
+    </div> 
+        
     <div class="" id="bp">
         <ul class="nav justify-content-center">
             <li id="" class="nav-item">

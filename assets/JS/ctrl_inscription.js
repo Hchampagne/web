@@ -7,8 +7,8 @@ $(document).ready(function () {
 //REGEX
 var regNom = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
 var regPrenom = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
-var regOrganisme = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
-var regLogin = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
+var regOrganisme = /^[A-Za-zéèçàäëï]+([\s-][A-Za-zéèçàäëï]+)*$/;
+var regLogin = /^[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*$/;
 var regMail = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
 var regMdp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
 
@@ -110,6 +110,27 @@ $('#ins_email').change(function () {
         }
     });
 });
+
+//controle doublons login (ajax)
+$('#ins_login').change(function () {
+    $.post({
+        url: "./../Ajax/doublon",
+        data:
+        {
+            verifRef: $("#ins_login").val(),
+            verifChamps: "login",
+            verifTable: "adherent",
+        },
+        success: function (data) {
+            if (data == 1) {
+                $("#alertLogin").text("dèjà utilisée");
+            } else {
+                 $("#alertLogin").html('&nbsp');
+             }
+        }
+    });
+});
+
 
 });
 
