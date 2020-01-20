@@ -48,6 +48,8 @@
 
     <script>
 
+
+// montre / cache le bouton solution du jeu
 $(document).ready(function(){
 
     setInterval(() => {
@@ -63,6 +65,8 @@ $(document).ready(function(){
         
     }, 1000);
 
+
+    // selection de la carte
     $(".btn-metiers").click(function(){
         var id = $(this).data("id");
         
@@ -71,20 +75,21 @@ $(document).ready(function(){
         }
         else {
             $(".metier-" + id).removeClass("bg-primary").addClass("couleur-metier-"+id);
-        }
-        
+        }       
     });
     
     
 
-
+    //fonction déplacé
    function evt_dragover() {
        $(".dossier").on("dragover", function (ev) {
              ev.originalEvent.dataTransfer.dropEffect = "move";            
            ev.preventDefault();
        });
    }
-   
+
+
+   //fonction deposé
    function evt_dragdrop() {
           $(".carte").on("dragstart", function (ev) {
            
@@ -123,6 +128,7 @@ $(document).ready(function(){
            compte_cartes();
        });
    }
+
    
    function compte_cartes() {
        $("#compteur").html($("#cartes").children().length);
@@ -151,7 +157,7 @@ $(document).ready(function(){
    }); 
 });
    
-    
+// minuteur  
     var date = new Date();
     date.setMinutes( date.getMinutes() + 15 );
 

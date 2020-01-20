@@ -40,7 +40,7 @@ class Corif_model extends CI_Model {
         return $requete->result();
     } 
    
-// selection des adherents avec le role admin   
+// selection des adherents avec le role formateur  
     function formateur()
     {
         $this->db->from('adherent');

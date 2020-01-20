@@ -39,7 +39,7 @@ class Auth {
                 'date_debut' => $resultat->date_session,
                 'heure_debut'=> $resultat->heure_debut,
                 'heure_fin'  => $resultat->heure_fin,
-                'role'       => $invite,
+                //'role'       => $invite,
                 'log_in'    => TRUE
             );
     
@@ -49,14 +49,16 @@ class Auth {
         }
 
         else  {
+            
             session_destroy ();
             return FALSE;
 
         }  
     }// session jeu
 
-    public function login($log, $email)
-    {
+    public function login($log, $email){
+
+        // requete retourne row de la table adhérent pour login ou emeail donné
         $resultat = $this->CI->db->query("
             SELECT * 
             FROM adherent
@@ -64,8 +66,9 @@ class Auth {
         ", array($log, $email))->row();
 
 
-        if ($resultat) {
-            
+        if ($resultat) { // si  resultat 
+
+            // insert les données de la requete dans les variables de session
             $newdata = array(
                 'username'  => $resultat->login,
                 'id'        => $resultat->id,
@@ -76,13 +79,17 @@ class Auth {
                 'validation' => $resultat->validation,
                 'log_in'    => TRUE
             );
-    
             $this->CI->session->set_userdata($newdata);
 
+            // retourne true vers emmetteur (connexion/login)
             return TRUE;
+            
         }
 
         else  {
+
+            //il n y a pas de resultat => detruit la session
+            //retourne false vers emmetteur (connexion/login)
             session_destroy ();
             return FALSE;
 
@@ -100,8 +107,7 @@ class Auth {
     // FALSE sinon
     public function is_logged()
     {
-        if (isset($_SESSION["log_in"]))
-            {
+        if (isset($_SESSION["log_in"])){ 
             return TRUE;
             }
 

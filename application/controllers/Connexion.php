@@ -179,49 +179,66 @@ class Connexion extends CI_Controller{
 
     public function login(){
 
-        // 
+        // déf une date du jour en fonction de la timezone europe /Paris
         date_default_timezone_set('Europe/Paris');
         $today =date("Y-m-d H:i:s");
 
-        if ($this->input->post())
-        {
+        if ($this->input->post()) {  /// si il y a un post
+
+            // recherche base de donnée  email / login 
             $log = $email = $this->input->post("login");           
             $data= $this->Corif_model->login($log, $email);
             $detail = $data->row();
             
 
-            if ($data->num_rows() == 0){
-               message("Vous n'êtes pas enregistré !!");
-               Redirect(site_url('accueil'));
+            if ($data->num_rows() == 0){ // la requete retourne rien email ou login non pésent dans la base
+
+                // message pas enregistté retoou a l'accueil
+                message("Vous n'êtes pas enregistré !!");
+                Redirect(site_url('accueil'));
             }
 
                 
-            elseif (password_verify($this->input->post("password"), $detail->mdp))
-                {
-                        
+            elseif (password_verify($this->input->post("password"), $detail->mdp)){  // verifie conformité mdp
+
+                        // ajout date dans le tableau  $data
                         $data = array("date_connexion" => $today);
+
+                        // update de la table adhérent avec date dernière connexion
                         $this->db->where('login', $log);
                         $this->db->update('adherent', $data);
+
+                        // envoie login / email pour ouverture session
                         $this->auth->login($log, $email);
+
+
                     if ($this->auth->is_connect() == TRUE) {
+                        // si valider
+                        // redirige vers accueil ????
                         Redirect(site_url('accueil'));
+
                     } else {
+
+                        //pas de session créée problème identification
+                        //message et redirection accueil
                         $this->auth->deconnect();
                         message('Votre demande est en cours de validation par votre administrateur');
                         Redirect(site_url('accueil'));
-                    }
-                    
-                    
+                    }                                       
                 }
 
             else{
-                // echo password_verify($this->input->post("password"), $detail->mdp);
+                
+                // mot de passe erroné
+                //retour page login
                 message('Votre mot de passe est erroné !!');
                 redirect(site_url("connexion/login"));
                 }
         }
     
         else{
+
+            // premier demarrage affichage page login (pas de post)
             $this->load->view('head');
             $this->load->view('header');
             $this->load->view('connexion/login');

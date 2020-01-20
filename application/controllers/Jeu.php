@@ -13,9 +13,12 @@ class Jeu extends CI_Controller {
             $jeu=mktime($minute=15);
 
         if($this->auth->is_logged() == TRUE){ 
+
+            // charge les head et header
             $this->load->view('head');
             $this->load->view('header');
-            
+
+            // requete select les cartes pour un metier dans une session 
             $cartes = $this->db->query("
                 select * from carte where type = 'metier' and id_metier in (
                     select id_metier from contient where id_session=?
@@ -75,6 +78,9 @@ class Jeu extends CI_Controller {
         
 
     }
+
+
+    
     public function delete_session($id)
     {
         $this->Corif_model->delete_session($id);
