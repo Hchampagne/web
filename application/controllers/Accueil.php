@@ -22,6 +22,7 @@ class Accueil extends CI_Controller {
 	{
 		$this->load->view('head');
 		$this->load->view('header');
+		$this->load->view('modal/connexionModal');
 		$this->load->view('accueil/accueil');
 		$this->load->view('footer');
 	}

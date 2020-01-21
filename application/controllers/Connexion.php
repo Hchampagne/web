@@ -251,7 +251,7 @@ class Connexion extends CI_Controller{
     public function deconnexion()
         {
             $this->auth->deconnect();
-            redirect('connexion/login');
+            redirect('Accueil');
         }
 
 
