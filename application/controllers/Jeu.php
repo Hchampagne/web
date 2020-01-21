@@ -299,30 +299,38 @@ class Jeu extends CI_Controller {
     }
 
 
-    function login()
-    {
-        
+    function login() {
 
-        if ($this->input->post()){
-            $today =date("Y-m-d");
+        if ($this->input->post()){  //si post
+
+            // date du jour
+            $today = date("Y-m-d");
+
+            //recup valeur du post
             $nom = $this->input->post("nom");
             $email = $this->input->post("email");
+
+            // interroge la base de donnée table invité pour le nom
             $data= $this->Corif_model->participantb($nom);
-            $idsession= $data->id_session;
+
+            // recup id de la session, date de session, email
+            $idsession = $data->id_session;
             $datesession = $data->date_session;
             $mail= $data->email;
+
+            // interroge la base de donnée
             $model= $this->Corif_model->loginjeu($nom, $email);
             $detail = $model->row();
                         
 
             if ($model->num_rows() == 0){
+                
                 message("Vous n'êtes pas enregistré !!");
                 redirect(site_url("accueil"));
             }
             else{
-                if ($data->email == $email && $today == $datesession){
-                    $this->output->enable_profiler(TRUE);
-                    
+                if ($data->email == $email && $today == $datesession){    
+
                     $id=$data->id;
                     $this->auth->loginjeu($nom, $email);
                     message("Bienvenue !!");
@@ -330,14 +338,12 @@ class Jeu extends CI_Controller {
                 }
 
                 else{
-                    $this->output->enable_profiler(TRUE);                 
+                             
                     message('Merci de vérifier les identifiants de connexion reçu par Email ou la date et heure de connexion');
                     redirect(site_url("accueil"));
-                        }
-            }
-        }
-
-            else{
+                    }
+                }
+        }else{
        
         $this->load->view('head');
         $this->load->view('header');

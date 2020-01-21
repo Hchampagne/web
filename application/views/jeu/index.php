@@ -13,21 +13,18 @@
             <input  class="btn btn-metiers" type="button" value="<?= $m->metier ?>" data-id="<?= $m->id ?>">
         <?php endforeach; ?>                               
         </div>
-
-        
-
-        
+       
         <div>
             <h2 class="text-center">Dossier</h2>
             <button class="btn btn-info" id="btn_add" >+ Métier</button>
             <div><br></div>
             <!--Zone draggable -->
-            <div class="row" id="metiers">
-                
-            </div>
-            
+            <div class="row" id="metiers">           
+            </div>           
         </div> <!--Fin de Dossier  -->
-            <hr style="background-color:#FFFFFF">
+
+
+            <hr style="background-color:#FFFFFF">                                                                        
         <div>
             <h2 class="text-center">Carte (<span id="compteur"></span>)</h2>
 
@@ -49,7 +46,7 @@
     <script>
 
 
-// montre / cache le bouton solution du jeu
+// 
 $(document).ready(function(){
 
     setInterval(() => {
@@ -66,7 +63,7 @@ $(document).ready(function(){
     }, 1000);
 
 
-    // selection de la carte
+    // 
     $(".btn-metiers").click(function(){
         var id = $(this).data("id");
         
@@ -80,7 +77,7 @@ $(document).ready(function(){
     
     
 
-    //fonction déplacé
+
    function evt_dragover() {
        $(".dossier").on("dragover", function (ev) {
              ev.originalEvent.dataTransfer.dropEffect = "move";            
@@ -89,7 +86,7 @@ $(document).ready(function(){
    }
 
 
-   //fonction deposé
+
    function evt_dragdrop() {
           $(".carte").on("dragstart", function (ev) {
            
@@ -129,7 +126,7 @@ $(document).ready(function(){
        });
    }
 
-   
+   // compte le nombre de en jeu
    function compte_cartes() {
        $("#compteur").html($("#cartes").children().length);
    }
@@ -140,7 +137,7 @@ $(document).ready(function(){
    evt_remove();
    compte_cartes();
    
-   
+   // addition zone metier dropable 
    $("#btn_add").click(function () {
    
        var metiers = document.getElementById("metiers");

@@ -291,6 +291,8 @@ class Corif_model extends CI_Model {
             return $requete->result();
         }
 
+
+//
     function participantb($nom)
     {
         $this->db->select('*');
