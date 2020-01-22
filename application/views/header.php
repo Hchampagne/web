@@ -20,7 +20,7 @@
                             <a class="nav-link" href="#connexionModal" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= site_url("jeu/login") ?>">ESPACE JEU</a>
+                            <a class="nav-link" href="#modal/jeuModal" data-toggle="modal" data-target="#jeuModal">ESPACE JEU</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url("accueil/animation") ?>">REGLES</a>
