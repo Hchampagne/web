@@ -319,25 +319,24 @@ class Jeu extends CI_Controller {
             $mail= $data->email;
 
             // interroge la base de donnée
-            $model= $this->Corif_model->loginjeu($nom, $email);
+            $model= $this->Corif_model->loginjeu($email);
             $detail = $model->row();
                         
 
             if ($model->num_rows() == 0){
-                
+
+                var_dump($nom,$email);
                 message("Vous n'êtes pas enregistré !!");
                 redirect(site_url("accueil"));
-            }
-            else{
+                
+            }else{
                 if ($data->email == $email && $today == $datesession){    
 
                     $id=$data->id;
                     $this->auth->loginjeu($nom, $email);
                     message("Bienvenue !!");
                     Redirect(site_url('jeu/index/').$idsession);
-                }
-
-                else{
+                }else{
                              
                     message('Merci de vérifier les identifiants de connexion reçu par Email ou la date et heure de connexion');
                     redirect(site_url("accueil"));
