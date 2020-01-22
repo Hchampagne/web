@@ -17,7 +17,7 @@
                         ?> 
                     </h6>
 
-                    <nav class="navbar navbar-expand-lg " style="padding-left:20%">
+                    <nav class="navbar navbar-expand-lg " style="padding-left:10%">
                         <ul class="navbar-nav mr-auto" >
 
                             <li class="nav-item ">                               
@@ -27,7 +27,7 @@
                                 <?php if ($this->auth->is_logged() != TRUE){ ?>
 
                                     <li class="nav-item">
-                                    <a class="nav-link" href="#connexionModal" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
+                                        <a class="nav-link" href="#connexionModal" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
                                     </li>
                                                                      
                                 <?php }else{ ?>
@@ -39,7 +39,7 @@
                                             <a class="dropdown-item" href="<?= site_url("administration/adherent") ?>"><strong>Adherent</strong></a>
                                             <a class="dropdown-item" href="<?= site_url("administration/carte") ?>"><strong>Carte</strong></a>
                                             <a class="dropdown-item" href="<?= site_url("administration/dashboad") ?>"><strong>Tableau bord admin</strong></a>
-                                        </div> <!-- Fin dropdown -->
+                                        </div> 
                                     </li>
 
                                     <li class="nav-item">

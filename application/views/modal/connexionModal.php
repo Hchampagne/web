@@ -5,10 +5,13 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          
-          <h4 class="modal-title">Login</h4>
+
+        <div class="modal-header">         
+          <h4 class="modal-title">
+          Login
+          </h4>
         </div>
+        
         <div class="modal-body">
 
           <?= form_open('connexion/login', 'id="form_inscription"'); ?>
@@ -39,9 +42,7 @@
             </div> 
           </form>
         </div>
-        <!-- <div class="modal-footer">
-         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button> 
-        </div> -->
+        
       </div>
      
     </div>
