@@ -247,29 +247,20 @@ class Connexion extends CI_Controller{
     }
 
     
-
+        // 
     public function deconnexion()
         {
-            $this->auth->deconnect();
+            //$this->auth->deconnect();
+            $this->session->sess_destroy();
             redirect('Accueil');
         }
 
-
-
-
-        public function reset()
-        
-        {
-            
-            if($this->input->post())
-            
-            {
-                
-               $mail= $this->input->post();
-               
-
-               $data= $this->Corif_model->create_key($mail);
-                
+        public function reset()      
+        {           
+            if($this->input->post())          
+            {               
+               $mail= $this->input->post();              
+               $data= $this->Corif_model->create_key($mail);               
 
                 $this->email->from('noreply@jerem1formatic.fr', 'Corif');
                 $this->email->to($mail);
@@ -277,13 +268,10 @@ class Connexion extends CI_Controller{
                 $this->email->subject('Réinitialisation de mots de passe');
                 $this->email->message('<a href="https://dev.amorce.org/corif/index.php/administration/newpassword/'.$data.'"><strong>Réinitialisation de mot de passe</strong></a>');
 
-                $this->email->send();
-                
-                
+                $this->email->send();                
                 redirect('accueil');
                 message('Un Email avec un lien valable 24H vous a été envoyé !');
-            }
-        
+            }       
             else
             {
                 $this->load->view('head');
