@@ -50,6 +50,17 @@ header{
 
     }
 
+/*Dashboard*/
+    /* entête*/
+    th {
+        color: #343538;
+    }
+    /*ligne*/
+    td {
+        color: black;
+    }
+
+
 
 
     body{   
@@ -153,13 +164,7 @@ h6{
     margin-top: 2.5rem;
 }
 
-th{
-    color:#343538;
-}
 
-td{
-    color:#Fff;
-}
 
 small{
     color:#343538;

@@ -50,6 +50,7 @@ class Connexion extends CI_Controller{
                     // rechargement de la page
                     $this->load->view('head');
                     $this->load->view('header');
+                    $this->load->view('modal/inscriptionModal');
                     $this->load->view('connexion/inscription');
                     $this->load->view('footer');
                    

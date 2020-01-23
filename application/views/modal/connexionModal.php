@@ -32,10 +32,11 @@
         </div>
 
         <div class="form-group row justify-content-md-center">
-          <div class="col-sm-3 col-form-label">
+          <div class="col-sm-1 col-form-label">
           </div>
-          <div class="col-sm-7">
-            <input type="submit" id="login_submit" value="Connexion" class="btn">
+          <div class="col-sm-11">
+            <input type="submit" id="login_submit" value="Connexion" class="btn btn-default">
+            <a href="<?= site_url("connexion/inscription") ?>" class="btn btn-default">Incription</a>
             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
           </div>
         </div>

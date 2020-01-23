@@ -238,10 +238,15 @@ class Corif_model extends CI_Model {
         return $requete->result();
      }
 
-
+// CREATION DE LA SESSION
      function create_session($data)
     {
+        // insertion en base table session
         $this->db->insert('session', $data);
+        // recupéreation de l'id de l'insertion
+        $id=$this->db->insert_id();
+        // retourne id
+        return $id;
     }
     
 
@@ -281,7 +286,7 @@ class Corif_model extends CI_Model {
     }
 
 
-
+    // retourne select * + idi invite join session 
     function participant()
         {
             $this->db->select('*, invite.id as idi');

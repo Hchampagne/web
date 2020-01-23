@@ -47,40 +47,41 @@ class Jeu extends CI_Controller {
         }      
 }
 
-
+// CREATION DES SESSIONS
     public function create_session()
-    {
-        
-        if($this->input->post()){
-            if($this->auth->is_logged() == TRUE){ 
+    {       
+        if($this->input->post()){  //si exist un post
+
+            if($this->auth->is_logged() == TRUE){ // si une personne logged
+                // attribut les variables du post dans $data
                 $data = $this->input->post();
-                $formateur =$_SESSION['id'];
+                // attribut id de la session a $formateur
+                $formateur = $_SESSION['id'];
+                // ajout a $data  id_formateur => $formateur = $_SESSION['id']
                 $data += array("id_formateur" => $formateur);
+                //insert du post dans la base table session
                 $this->Corif_model->create_session($data);
+                //requete recup le dernier id en fait non l'id max
+                //defaut en cas de requete simultanée
                 $id = $this->db->query('select max(id) as id from session')->row()->id;
-                var_dump($id);
+                // redirect vers choix metier
                 redirect(site_url("jeu/choix_metier/") . $id );
-            }
-            
-            else{
+            }else{
+                // pas de connexion redirection
                 redirect(site_url("jeu/login"));
             }
-            
-
-        }
-        else{
+        }else{
+            //premier chargement
             $this->output->enable_profiler(FALSE);
             $this->load->view('head');
             $this->load->view('header');
             $this->load->view('jeu/createsession');
             $this->load->view('footer');
-        }
-        
-
+        }       
     }
 
 
-    
+/*******************************************************************************************************************/
     public function delete_session($id)
     {
         $this->Corif_model->delete_session($id);
@@ -93,6 +94,7 @@ class Jeu extends CI_Controller {
         redirect(site_url("jeu/dashboad")) ;
     }
 
+/***************************************************************************************************************** */
     public function modif_session($id)
     {
         
@@ -125,6 +127,8 @@ class Jeu extends CI_Controller {
 
     }
 
+    //***************************************************************************************************************************** */
+
     public function choix_metier($id)
     {
         $this->output->enable_profiler(true);
@@ -141,9 +145,7 @@ class Jeu extends CI_Controller {
                 select id_metier from contient where id_session=?  
             )
         ", $id)->result();
-
-        
-        
+    
         if($this->input->post()){
             if($this->auth->is_logged() == TRUE){
                 if ($this->input->post("add")) {
@@ -180,6 +182,7 @@ class Jeu extends CI_Controller {
         }
     }
 
+//***************************************************************************************************************************************** */
     public function create_participant($id)
     {
         $session = $this->db->query("select * from session where id=?", $id)->row();
@@ -231,22 +234,32 @@ class Jeu extends CI_Controller {
     public function dashboad()
     {
                       
-                if($this->auth->as_role() == true){
+            if($this->auth->as_role() == true){  // test si role exist
+                //charge views head et header
                 $this->load->view('head');
                 $this->load->view('header');
+                // jeu resultats table invite et session
                 $data['participant'] = $this->Corif_model->participant();
+                //attribut a $id <- valeur id en session
                 $id=$_SESSION["id"];
+                // requete select table session ou date session est la date du jour et ou id formateur est id de la session 
                 $sessions = $this->db->query("select * from session where date_session>=?", mdate() ," and id_formateur=?", $id)->result();
+                // ajoute dans $session le nombre de participant et les métier
+                // nb praticipant requete invite / id _session
+                // les métier selectionnés jointure sur metier avec contient ou id session
                 foreach ($sessions as $session) {
                     $session->nb_participant = $this->db->query("select count(*) as compteur from invite where id_session=?", $session->id)->row()->compteur;
                     $session->metiers = $this->db->query("select * from metier join contient on metier.id=contient.id_metier where contient.id_session=?", $session->id)->result();
                 }
+                // prepare transmittion a la vue dashboard
                 $data["sessions"] = $sessions;
-                $this->load->view('jeu/dashboad', $data);
+                // charge les vues dashboard et footer
+                $this->load->view('jeu/newdashboad', $data);
                 $this->load->view('footer');
             }
 
             else{
+                // redirection a login il n'y a pas de role existant
                 redirect(site_url("connexion/login"));
             } 
     }

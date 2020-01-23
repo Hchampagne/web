@@ -2,7 +2,7 @@
     <header id="">
         <div class="">
             <a href="http://www.corif.fr/">
-                <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" alt="CORIF" class="img-fluid"></a>
+                <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" alt="CORIF" class="img-responsive" height=auto max-width="100%"></a>
         </div> <!-- fin de row img -->
         <div class="container-fluid" id="menu">
             <nav class="navbar navbar-expand-lg " style="padding-left:25%">
@@ -17,10 +17,10 @@
                         <!-- test si pas de connexion  -->
                         <!-- affiche connexion <=> pas de connexion exist - menu au démarrage -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#connexionModal" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
+                            <a class="nav-link" href= "<?= site_url("modal/connexionModal") ?>" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#modal/jeuModal" data-toggle="modal" data-target="#jeuModal">ESPACE JEU</a>
+                            <a class="nav-link" href="<?= site_url("modal/jeuModal") ?>" data-toggle="modal" data-target="#jeuModal">ESPACE JEU</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url("accueil/animation") ?>">REGLES</a>
@@ -44,8 +44,8 @@
                                 <!-- affiche du menu admin-->
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="true">ADMINISTRATION</a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="<?= site_url("administration/adherent") ?>">Adheren</a>
-                                    <a class="dropdown-item" href="<?= site_url("administration/carte") ?>">Carte</a>
+                                    <a class="dropdown-item" href="<?= site_url("administration/adherent") ?>">Adherents</a>
+                                    <a class="dropdown-item" href="<?= site_url("administration/carte") ?>">Cartes</a>
                                     <a class="dropdown-item" href="<?= site_url("administration/dashboad") ?>">Tableau bord admin</a>
                                 </div>
                             </li>
