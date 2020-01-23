@@ -35,7 +35,7 @@
           <div class="col-sm-3 col-form-label">
           </div>
           <div class="col-sm-7">
-            <input type="submit" id="login_submit" value="login" class="btn">
+            <input type="submit" id="login_submit" value="Connexion" class="btn">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
           </div>
         </div>

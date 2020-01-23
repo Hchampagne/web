@@ -199,10 +199,10 @@ class Corif_model extends CI_Model {
 // Partie Jeu
 
 // selection participant
-    function loginjeu($nom)
+    function loginjeu($email)
     {
         $this->db->from('invite');
-        $this->db->where('nom', $nom);
+        $this->db->where('email', $email);
         $requete =  $this->db->get();
         return $requete;
     } 
