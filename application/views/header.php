@@ -2,7 +2,7 @@
     <header id="">
         <div class="">
             <a href="http://www.corif.fr/">
-                <img src="<?= base_url("img/images/logo-b.jpg") ?>" alt="CORIF" class="img-fluid"></a>
+                <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" alt="CORIF" class="img-fluid"></a>
         </div> <!-- fin de row img -->
         <div class="container-fluid" id="menu">
             <nav class="navbar navbar-expand-lg " style="padding-left:25%">
